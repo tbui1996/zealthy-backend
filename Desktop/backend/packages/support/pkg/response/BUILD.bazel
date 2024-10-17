@@ -1,0 +1,26 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "response",
+    srcs = [
+        "chat_response.go",
+        "chat_session_join_response.go",
+        "chat_session_response.go",
+        "chat_session_response_dto.go",
+        "online_user_response.go",
+        "pending_chat_session_response.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/support/pkg/response",
+    visibility = ["//visibility:public"],
+    deps = ["//packages/support/pkg/model"],
+)
+
+go_test(
+    name = "response_test",
+    srcs = ["chat_session_join_response_test.go"],
+    embed = [":response"],
+    deps = [
+        "//packages/support/pkg/model",
+        "@com_github_stretchr_testify//suite",
+    ],
+)

@@ -1,0 +1,1 @@
+ALTER TABLE IF EXISTS chat.patients ALTER COLUMN provider_id SET NOT NULL;

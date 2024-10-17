@@ -1,0 +1,62 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "update_user_lib",
+    srcs = [
+        "connector.go",
+        "handler.go",
+        "helpers.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/users/cmd/update_user",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//packages/common/dao",
+        "//packages/common/dynamo",
+        "//packages/common/exception",
+        "//packages/common/logging",
+        "//packages/common/requestConfig",
+        "//packages/users/pkg/mapper",
+        "//packages/users/pkg/model",
+        "//packages/users/pkg/request",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_lambda_go//lambda",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//service/apigatewaymanagementapi",
+        "@com_github_aws_aws_sdk_go//service/apigatewaymanagementapi/apigatewaymanagementapiiface",
+        "@com_github_aws_aws_sdk_go//service/cognitoidentityprovider",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@com_github_aws_aws_sdk_go//service/dynamodb/dynamodbiface",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_binary(
+    name = "update_user",
+    embed = [":update_user_lib"],
+    goarch = "amd64",
+    goos = "linux",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "update_user_test",
+    srcs = [
+        "handler_test.go",
+        "helpers_test.go",
+    ],
+    embed = [":update_user_lib"],
+    deps = [
+        "//packages/common/dynamo",
+        "//packages/common/mocks",
+        "//packages/users/pkg/mapper",
+        "//packages/users/pkg/mapper/iface",
+        "//packages/users/pkg/model",
+        "//packages/users/pkg/request",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//service/apigatewaymanagementapi/apigatewaymanagementapiiface",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@com_github_stretchr_testify//mock",
+        "@com_github_stretchr_testify//suite",
+        "@org_uber_go_zap//zaptest",
+    ],
+)

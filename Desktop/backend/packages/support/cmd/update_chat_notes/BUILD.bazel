@@ -1,0 +1,44 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "update_chat_notes_lib",
+    srcs = [
+        "connector.go",
+        "handler.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/support/cmd/update_chat_notes",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//packages/common/dao",
+        "//packages/common/exception",
+        "//packages/common/requestConfig",
+        "//packages/common/response",
+        "//packages/support/pkg/model",
+        "//packages/support/pkg/request",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_lambda_go//lambda",
+        "@io_gorm_gorm//:gorm",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_binary(
+    name = "update_chat_notes",
+    embed = [":update_chat_notes_lib"],
+    goarch = "amd64",
+    goos = "linux",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "update_chat_notes_test",
+    srcs = ["handler_test.go"],
+    embed = [":update_chat_notes_lib"],
+    deps = [
+        "@com_github_data_dog_go_sqlmock//:go-sqlmock",
+        "@com_github_stretchr_testify//suite",
+        "@io_gorm_driver_postgres//:postgres",
+        "@io_gorm_gorm//:gorm",
+        "@org_uber_go_zap//zaptest",
+    ],
+)

@@ -1,0 +1,26 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "task_is_internal_user_online_lib",
+    srcs = ["connector.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/global/cmd/task_is_internal_user_online",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//packages/common/connection",
+        "//packages/common/connection/dto",
+        "//packages/common/dynamo",
+        "//packages/common/logging",
+        "@com_github_aws_aws_lambda_go//lambda",
+        "@com_github_aws_aws_sdk_go//aws/session",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_binary(
+    name = "task_is_internal_user_online",
+    embed = [":task_is_internal_user_online_lib"],
+    goarch = "amd64",
+    goos = "linux",
+    visibility = ["//visibility:public"],
+)

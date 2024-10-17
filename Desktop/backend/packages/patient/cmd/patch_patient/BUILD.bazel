@@ -1,0 +1,44 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "patch_patient_lib",
+    srcs = [
+        "connector.go",
+        "handler.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/patient/cmd/patch_patient",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//packages/common/exception",
+        "//packages/common/logging",
+        "//packages/common/requestConfig",
+        "//packages/patient/pkg/data",
+        "//packages/patient/pkg/data/iface",
+        "//packages/patient/pkg/request",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_lambda_go//lambda",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_binary(
+    name = "patch_patient",
+    embed = [":patch_patient_lib"],
+    goarch = "amd64",
+    goos = "linux",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "patch_patient_test",
+    srcs = ["handler_test.go"],
+    embed = [":patch_patient_lib"],
+    deps = [
+        "//packages/patient/mocks",
+        "//packages/patient/pkg/model",
+        "//packages/patient/pkg/request",
+        "@com_github_stretchr_testify//mock",
+        "@com_github_stretchr_testify//suite",
+        "@org_uber_go_zap//zaptest",
+    ],
+)

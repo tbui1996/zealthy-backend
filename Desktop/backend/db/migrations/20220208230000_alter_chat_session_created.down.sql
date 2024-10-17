@@ -1,0 +1,1 @@
+ALTER TABLE chat.sessions ALTER COLUMN created TYPE INT USING extract(epoch from created)::int;

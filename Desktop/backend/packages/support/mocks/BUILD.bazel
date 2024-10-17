@@ -1,0 +1,20 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "mocks",
+    srcs = [
+        "chat_message_repository.go",
+        "chat_session.go",
+        "chat_session_repository.go",
+        "offline_message_notification_repo.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/support/mocks",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/support/pkg/model",
+        "//packages/support/pkg/request",
+        "//packages/support/pkg/response",
+        "//packages/support/pkg/session/iface",
+        "@com_github_stretchr_testify//mock",
+    ],
+)

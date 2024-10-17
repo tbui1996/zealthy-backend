@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "iface",
+    srcs = [
+        "email_domain_whitelist_repository.go",
+        "mock_email_domain_whitelist_repository.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/users/pkg/dao/iface",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/common/exception",
+        "//packages/users/pkg/model",
+        "@com_github_stretchr_testify//mock",
+    ],
+)

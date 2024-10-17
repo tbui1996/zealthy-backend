@@ -1,0 +1,62 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "session",
+    srcs = [
+        "chat_message_repository_mock.go",
+        "dynamodb_chat_message_repository.go",
+        "rds_chat_session.go",
+        "rds_chat_session_repository.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/support/pkg/session",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/common/dao",
+        "//packages/common/dynamo",
+        "//packages/common/events",
+        "//packages/common/events/eventconstants",
+        "//packages/common/uuid",
+        "//packages/support/pkg/model",
+        "//packages/support/pkg/request",
+        "//packages/support/pkg/response",
+        "//packages/support/pkg/session/iface",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//aws/awserr",
+        "@com_github_aws_aws_sdk_go//aws/session",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@com_github_aws_aws_sdk_go//service/dynamodb/dynamodbattribute",
+        "@com_github_aws_aws_sdk_go//service/dynamodb/dynamodbiface",
+        "@com_github_aws_aws_sdk_go//service/eventbridge",
+        "@com_github_aws_aws_sdk_go//service/eventbridge/eventbridgeiface",
+        "@com_github_stretchr_testify//mock",
+        "@io_gorm_gorm//:gorm",
+    ],
+)
+
+go_test(
+    name = "session_test",
+    srcs = [
+        "dynamodb_chat_message_repository_test.go",
+        "rds_chat_session_repository_test.go",
+        "rds_chat_session_test.go",
+        "validate_chat_request_test.go",
+    ],
+    embed = [":session"],
+    deps = [
+        "//packages/common/events",
+        "//packages/common/events/eventconstants",
+        "//packages/common/mocks",
+        "//packages/support/pkg/model",
+        "//packages/support/pkg/request",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//aws/awserr",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@com_github_aws_aws_sdk_go//service/dynamodb/dynamodbattribute",
+        "@com_github_aws_aws_sdk_go//service/eventbridge",
+        "@com_github_data_dog_go_sqlmock//:go-sqlmock",
+        "@com_github_stretchr_testify//mock",
+        "@com_github_stretchr_testify//suite",
+        "@io_gorm_driver_postgres//:postgres",
+        "@io_gorm_gorm//:gorm",
+    ],
+)

@@ -1,0 +1,36 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "repo",
+    srcs = ["repo.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/support/pkg/offline_message_notification/repo",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/common/dynamo",
+        "//packages/support/pkg/offline_message_notification/constants",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//aws/awserr",
+        "@com_github_aws_aws_sdk_go//aws/session",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@com_github_aws_aws_sdk_go//service/dynamodb/dynamodbiface",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_test(
+    name = "repo_test",
+    srcs = ["repo_test.go"],
+    embed = [":repo"],
+    deps = [
+        "//packages/common/dynamo",
+        "//packages/common/mocks",
+        "//packages/support/pkg/offline_message_notification/constants",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//aws/awserr",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@com_github_stretchr_testify//mock",
+        "@com_github_stretchr_testify//suite",
+        "@org_uber_go_zap//:zap",
+        "@org_uber_go_zap//zaptest",
+    ],
+)

@@ -1,0 +1,8 @@
+package flagerror
+
+const (
+	UNKNOWN       = "UNKNOWN"
+	KEY_CONFLICT  = "KEY_CONFLICT"
+	NOT_FOUND     = "NOT_FOUND"
+	NAME_CONFLICT = "NAME_CONFLICT"
+)

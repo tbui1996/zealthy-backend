@@ -1,0 +1,1 @@
+ALTER TABLE chat.session_statuses DROP COLUMN ride_scheduled;

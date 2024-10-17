@@ -1,0 +1,1 @@
+ALTER TABLE IF EXISTS cloud.files DROP COLUMN IF EXISTS deleted_at;

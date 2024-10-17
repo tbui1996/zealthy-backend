@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "create_ses_contact_list_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/support/cmd/create_ses_contact_list",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//packages/common/logging",
+        "@com_github_aws_aws_lambda_go//lambda",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//aws/session",
+        "@com_github_aws_aws_sdk_go//service/sesv2",
+    ],
+)
+
+go_binary(
+    name = "create_ses_contact_list",
+    embed = [":create_ses_contact_list_lib"],
+    visibility = ["//visibility:public"],
+)

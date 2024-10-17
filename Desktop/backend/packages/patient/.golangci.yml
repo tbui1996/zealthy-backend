@@ -1,0 +1,23 @@
+run:
+  timeout: 5m
+linters:
+  enable:
+    - exportloopref
+    - funlen
+    - goconst
+    - gomnd
+    - gosec
+    - nestif
+    - prealloc
+linters-settings:
+  funlen:
+    lines: 68
+    statements: 40
+  nextif:
+    min-complexity: 4
+issues:
+  exclude-rules:
+    - path: _test.go
+      linters:
+        - funlen
+        - goconst

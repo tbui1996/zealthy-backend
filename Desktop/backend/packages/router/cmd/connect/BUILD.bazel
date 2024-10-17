@@ -1,0 +1,50 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "connect_lib",
+    srcs = [
+        "handler.go",
+        "main.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/router/cmd/connect",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//packages/common/dynamo",
+        "//packages/common/events",
+        "//packages/common/events/eventconstants",
+        "//packages/common/events/iface",
+        "//packages/common/exception",
+        "//packages/common/requestConfig",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_lambda_go//lambda",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@com_github_aws_aws_sdk_go//service/dynamodb/dynamodbattribute",
+        "@com_github_aws_aws_sdk_go//service/dynamodb/dynamodbiface",
+        "@com_github_aws_aws_sdk_go//service/eventbridge",
+    ],
+)
+
+go_binary(
+    name = "connect",
+    embed = [":connect_lib"],
+    goarch = "amd64",
+    goos = "linux",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "connect_test",
+    srcs = ["handler_test.go"],
+    embed = [":connect_lib"],
+    deps = [
+        "//packages/common/dynamo",
+        "//packages/common/events/eventconstants",
+        "//packages/common/mocks",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@com_github_aws_aws_sdk_go//service/dynamodb/dynamodbattribute",
+        "@com_github_stretchr_testify//mock",
+        "@com_github_stretchr_testify//suite",
+    ],
+)

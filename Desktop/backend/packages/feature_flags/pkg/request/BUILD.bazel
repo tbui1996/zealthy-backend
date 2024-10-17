@@ -1,0 +1,12 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "request",
+    srcs = [
+        "create_flag_request.go",
+        "delete_flag_request.go",
+        "patch_flag_request.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/feature_flags/pkg/request",
+    visibility = ["//visibility:public"],
+)

@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "response",
+    srcs = [
+        "count_form_response.go",
+        "create_form_respone.go",
+        "delete_form_response.go",
+        "edit_form_response.go",
+        "form_type_response.go",
+        "get_form_response.go",
+        "sent_form_response.go",
+        "submitted_form_response.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/forms/pkg/response",
+    visibility = ["//visibility:public"],
+    deps = ["//packages/forms/pkg/model"],
+)

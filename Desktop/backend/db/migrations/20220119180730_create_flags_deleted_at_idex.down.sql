@@ -1,0 +1,1 @@
+DROP INDEX IF EXISTS idx_flags_deleted_at;

@@ -1,0 +1,1 @@
+CREATE INDEX IF NOT EXISTS idx_flags_deleted_at ON feature_flags.flags (deleted_at);

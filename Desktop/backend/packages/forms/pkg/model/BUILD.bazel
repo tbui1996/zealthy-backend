@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "model",
+    srcs = [
+        "form.go",
+        "form_discard.go",
+        "form_sent.go",
+        "form_submission.go",
+        "input.go",
+        "input_submission.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/forms/pkg/model",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_lib_pq//:pq"],
+)

@@ -1,0 +1,58 @@
+# http cloud routes
+terraform state mv module.cloud.module.sonar_service_cloud_file_download_web module.cloud_file_download_web 
+terraform state mv module.cloud.module.sonar_service_cloud_file_upload_web module.cloud_file_upload_web
+terraform state mv module.cloud.module.sonar_service_cloud_get_file module.cloud_get_file
+terraform state mv module.cloud.module.sonar_service_cloud_view_file module.cloud_view_file
+terraform state mv module.cloud.module.sonar_service_cloud_associate_file module.cloud_associate_file
+
+# http form routes
+terraform state mv module.forms.module.forms_count module.forms_count
+terraform state mv module.forms.module.forms_create module.forms_create
+terraform state mv module.forms.module.forms_get module.forms_get
+terraform state mv module.forms.module.forms_list module.forms_list
+terraform state mv module.forms.module.forms_response module.forms_response
+terraform state mv module.forms.module.forms_send module.forms_send
+
+# # http pearl routes
+terraform state mv module.pearls.module.pearls_send module.pearls_send
+
+# http router routes
+terraform state mv module.router.module.sonar_router_broadcast module.router_broadcast
+terraform state mv module.router.module.sonar_router_user_list module.router_user_list
+terraform state mv module.router.module.sonar_router_user_list_connected module.router_user_list_connected
+
+# http support routes
+terraform state mv module.support.module.sonar_support_chat_session module.support_chat_session
+terraform state mv module.support.module.sonar_support_pending_chat_sessions_get module.support_pending_chat_sessions_get
+terraform state mv module.support.module.sonar_support_assign_pending_chat_session module.support_assign_pending_chat_session
+terraform state mv module.support.module.sonar_support_chat_messages_get module.support_chat_messages_get
+terraform state mv module.support.module.sonar_support_chat_sessions_get module.support_chat_sessions_get
+terraform state mv module.support.module.sonar_support_chat_sessions_update_open module.support_chat_sessions_update_open
+
+# http user routes
+terraform state mv module.users.module.sonar_users_user_list module.users_user_list
+terraform state mv module.users.module.sonar_users_group_assign module.users_group_assign
+
+# loop_http
+terraform state mv module.router.aws_kms_key.http_loop_gateway_logs_kms_key aws_kms_key.http_loop_gateway_logs_kms_key
+terraform state mv module.router.aws_cloudwatch_log_group.http_loop_gateway_logs aws_cloudwatch_log_group.http_loop_gateway_logs
+terraform state mv module.router.aws_apigatewayv2_api.loop_gateway aws_apigatewayv2_api.loop_gateway
+terraform state mv module.router.aws_apigatewayv2_stage.loop_v1 aws_apigatewayv2_stage.loop_v1
+terraform state mv module.router.aws_apigatewayv2_deployment.loop_http_deploy aws_apigatewayv2_deployment.loop_http_deploy
+terraform state mv module.router.module.route53_configuration_loop_api module.route53_configuration_loop_api
+
+# loop unconfirmed websocket
+terraform state mv module.router.aws_kms_key.unconfirmed_websocket_api_logs_kms_key aws_kms_key.unconfirmed_websocket_api_logs_kms_key
+terraform state mv module.router.aws_cloudwatch_log_group.unconfirmed_websocket_api_logs aws_cloudwatch_log_group.unconfirmed_websocket_api_logs
+terraform state mv module.router.aws_apigatewayv2_api.unconfirmed_websocket_api aws_apigatewayv2_api.unconfirmed_websocket_api
+terraform state mv module.router.aws_apigatewayv2_stage.unconfirmed_v1 aws_apigatewayv2_stage.unconfirmed_v1
+terraform state mv module.router.aws_apigatewayv2_deployment.unconfirmed_websocket_deploy aws_apigatewayv2_deployment.unconfirmed_websocket_deploy
+terraform state mv module.router.module.unconfirmed_route53_configuration module.unconfirmed_route53_configuration
+
+# loop websocket
+terraform state mv module.router.aws_kms_key.websocket_api_logs_kms_key aws_kms_key.loop_websocket_api_logs_kms_key 
+terraform state mv module.router.aws_cloudwatch_log_group.websocket_api_logs aws_cloudwatch_log_group.loop_websocket_api_logs
+terraform state mv module.router.aws_apigatewayv2_api.websocket_api aws_apigatewayv2_api.loop_websocket_api
+terraform state mv module.router.aws_apigatewayv2_stage.v1 aws_apigatewayv2_stage.loop_websocket_v1 
+terraform state mv module.router.aws_apigatewayv2_deployment.websocket_deploy aws_apigatewayv2_deployment.websocket_deploy 
+terraform state mv module.router.module.route53_configuration module.loop_websocket_route53_configuration 

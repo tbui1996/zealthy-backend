@@ -1,0 +1,17 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "iface",
+    srcs = [
+        "external_user.go",
+        "external_user_organization.go",
+        "mock_external_user.go",
+        "mock_external_user_organization.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/users/pkg/mapper/iface",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/users/pkg/model",
+        "@com_github_stretchr_testify//mock",
+    ],
+)

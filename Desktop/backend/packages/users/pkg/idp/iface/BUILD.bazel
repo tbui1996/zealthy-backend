@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "iface",
+    srcs = [
+        "mock_sonar_identity_provider.go",
+        "sonar_identity_provider.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/users/pkg/idp/iface",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/common/exception",
+        "@com_github_aws_aws_sdk_go//service/cognitoidentityprovider",
+        "@com_github_stretchr_testify//mock",
+    ],
+)

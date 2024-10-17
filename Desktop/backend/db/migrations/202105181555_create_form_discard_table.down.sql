@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS form.form_discards;

@@ -1,0 +1,9 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "iface",
+    srcs = ["internal_user_repository.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/users/pkg/repo/iface",
+    visibility = ["//visibility:public"],
+    deps = ["//packages/users/pkg/dto"],
+)

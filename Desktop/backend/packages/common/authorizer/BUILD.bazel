@@ -1,0 +1,48 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "authorizer",
+    srcs = [
+        "get_policy.go",
+        "helpers.go",
+        "jwk.go",
+        "jwt.go",
+        "olive.go",
+        "sonar.go",
+        "sonar_response_builder.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/common/authorizer",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/common/authorizer/interfaces",
+        "//packages/common/dynamo",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@com_github_golang_jwt_jwt//:jwt",
+        "@com_github_lestrrat_go_jwx//jwk",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_test(
+    name = "authorizer_test",
+    srcs = [
+        "get_policy_test.go",
+        "helpers_test.go",
+        "sonar_response_builder_test.go",
+    ],
+    embed = [":authorizer"],
+    deps = [
+        "//packages/common/authorizer/mocks",
+        "//packages/common/dynamo",
+        "//packages/common/mocks",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@com_github_golang_jwt_jwt//:jwt",
+        "@com_github_stretchr_testify//assert",
+        "@com_github_stretchr_testify//mock",
+        "@org_uber_go_zap//:zap",
+    ],
+)

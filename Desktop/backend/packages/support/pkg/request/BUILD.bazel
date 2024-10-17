@@ -1,0 +1,20 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "request",
+    srcs = [
+        "chat_request.go",
+        "chat_session_create_request.go",
+        "chat_session_request.go",
+        "chat_session_star_request.go",
+        "feedback_request.go",
+        "pending_chat_session_request.go",
+        "read_receipt.go",
+        "support_request.go",
+        "typing_action_request.go",
+        "update_chat_notes_request.go",
+        "update_chat_session_request.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/support/pkg/request",
+    visibility = ["//visibility:public"],
+)

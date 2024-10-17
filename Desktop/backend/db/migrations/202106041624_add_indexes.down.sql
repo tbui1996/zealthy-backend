@@ -1,0 +1,1 @@
+DROP INDEX IF EXISTS idx_inputs_form_id, idx_form_sents_form_id, idx_form_submissions_form_sent_id, idx_input_submissions_form_submission_id, idx_form_discards_form_sent_id

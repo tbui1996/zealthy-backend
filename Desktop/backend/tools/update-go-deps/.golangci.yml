@@ -1,0 +1,15 @@
+linters:
+  enable:
+    - exportloopref
+    - funlen
+    - goconst
+    - gomnd
+    - gosec
+    - nestif
+    - prealloc
+linters-settings:
+  funlen:
+    lines: 60
+    statements: 40
+  nextif:
+    min-complexity: 4

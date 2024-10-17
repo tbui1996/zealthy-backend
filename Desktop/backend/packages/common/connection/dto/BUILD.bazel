@@ -1,0 +1,8 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "dto",
+    srcs = ["user_online_status.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/common/connection/dto",
+    visibility = ["//visibility:public"],
+)

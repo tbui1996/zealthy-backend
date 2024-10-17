@@ -1,0 +1,17 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "mocks",
+    srcs = [
+        "agency_provider_repository.go",
+        "appointment_repository.go",
+        "patient_repository.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/patient/mocks",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/patient/pkg/data/appointment_error",
+        "//packages/patient/pkg/model",
+        "@com_github_stretchr_testify//mock",
+    ],
+)

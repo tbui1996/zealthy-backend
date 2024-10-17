@@ -1,0 +1,8 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "response",
+    srcs = ["feature_flag_response.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/feature_flags/pkg/response",
+    visibility = ["//visibility:public"],
+)

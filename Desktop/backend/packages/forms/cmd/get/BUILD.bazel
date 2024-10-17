@@ -1,0 +1,25 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "get_lib",
+    srcs = ["connector.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/forms/cmd/get",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//packages/common/dao",
+        "//packages/common/exception",
+        "//packages/common/requestConfig",
+        "//packages/forms/pkg/repo",
+        "//packages/forms/pkg/response",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_lambda_go//lambda",
+    ],
+)
+
+go_binary(
+    name = "get",
+    embed = [":get_lib"],
+    goarch = "amd64",
+    goos = "linux",
+    visibility = ["//visibility:public"],
+)

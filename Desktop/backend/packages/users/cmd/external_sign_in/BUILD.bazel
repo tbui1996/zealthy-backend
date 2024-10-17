@@ -1,0 +1,52 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "external_sign_in_lib",
+    srcs = [
+        "connector.go",
+        "handle_admin_get_user_err.go",
+        "handler.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/users/cmd/external_sign_in",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//packages/common/exception",
+        "//packages/common/requestConfig",
+        "//packages/users/pkg/externalAuth",
+        "//packages/users/pkg/response",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_lambda_go//lambda",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//aws/awserr",
+        "@com_github_aws_aws_sdk_go//service/cognitoidentityprovider",
+        "@com_github_aws_aws_sdk_go//service/cognitoidentityprovider/cognitoidentityprovideriface",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_binary(
+    name = "external_sign_in",
+    embed = [":external_sign_in_lib"],
+    goarch = "amd64",
+    goos = "linux",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "external_sign_in_test",
+    srcs = [
+        "handle_admin_get_user_err_test.go",
+        "handler_test.go",
+    ],
+    embed = [":external_sign_in_lib"],
+    deps = [
+        "//packages/common/exception",
+        "//packages/common/mocks",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//aws/awserr",
+        "@com_github_aws_aws_sdk_go//service/cognitoidentityprovider",
+        "@com_github_stretchr_testify//assert",
+        "@com_github_stretchr_testify//suite",
+        "@org_uber_go_zap//zaptest",
+    ],
+)

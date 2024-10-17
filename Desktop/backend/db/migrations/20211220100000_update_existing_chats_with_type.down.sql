@@ -1,0 +1,1 @@
+DELETE FROM chat.session_descriptors WHERE name = 'DESCRIPTION';

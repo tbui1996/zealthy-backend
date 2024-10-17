@@ -1,0 +1,28 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "events",
+    srcs = ["events.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/common/events",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/common/events/eventconstants",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//service/eventbridge",
+        "@com_github_aws_aws_sdk_go//service/eventbridge/eventbridgeiface",
+    ],
+)
+
+go_test(
+    name = "events_test",
+    srcs = ["events_test.go"],
+    embed = [":events"],
+    deps = [
+        "//packages/common/events/eventconstants",
+        "//packages/common/mocks",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//service/eventbridge",
+        "@com_github_stretchr_testify//mock",
+        "@com_github_stretchr_testify//suite",
+    ],
+)

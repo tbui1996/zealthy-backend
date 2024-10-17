@@ -1,0 +1,11 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "request",
+    srcs = [
+        "delete_file_request.go",
+        "file_upload_request.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/cloud/pkg/request",
+    visibility = ["//visibility:public"],
+)

@@ -1,0 +1,28 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "iterator",
+    srcs = ["main.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/common/iterator",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//aws/session",
+        "@com_github_aws_aws_sdk_go//service/sqs",
+        "@com_github_aws_aws_sdk_go//service/sqs/sqsiface",
+    ],
+)
+
+go_test(
+    name = "iterator_test",
+    srcs = ["iterator_test.go"],
+    embed = [":iterator"],
+    deps = [
+        "//packages/common/mocks",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_sdk_go//service/sqs",
+        "@com_github_stretchr_testify//mock",
+        "@com_github_stretchr_testify//suite",
+    ],
+)

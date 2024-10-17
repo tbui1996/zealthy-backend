@@ -1,0 +1,43 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "chat_messages_get_lib",
+    srcs = [
+        "connector.go",
+        "handler.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/support/cmd/chat_messages_get",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//packages/common/exception",
+        "//packages/common/logging",
+        "//packages/common/requestConfig",
+        "//packages/support/pkg/session",
+        "//packages/support/pkg/session/iface",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_lambda_go//lambda",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_binary(
+    name = "chat_messages_get",
+    embed = [":chat_messages_get_lib"],
+    goarch = "amd64",
+    goos = "linux",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "chat_messages_get_test",
+    srcs = ["handler_test.go"],
+    embed = [":chat_messages_get_lib"],
+    deps = [
+        "//packages/support/mocks",
+        "//packages/support/pkg/model",
+        "//packages/support/pkg/model/modeltest",
+        "@com_github_stretchr_testify//suite",
+        "@org_uber_go_zap//zaptest",
+    ],
+)

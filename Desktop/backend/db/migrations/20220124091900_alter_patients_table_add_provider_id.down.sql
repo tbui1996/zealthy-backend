@@ -1,0 +1,1 @@
+ALTER TABLE IF EXISTS chat.patients DROP COLUMN IF EXISTS provider_id;

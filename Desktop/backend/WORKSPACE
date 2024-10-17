@@ -1,0 +1,122 @@
+# Workspace Setup
+workspace(name = "sonar-backend")
+
+# HTTP Archive to import packages
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# Packaging tools
+http_archive(
+    name = "rules_pkg",
+    sha256 = "353b20e8b093d42dd16889c7f918750fb8701c485ac6cceb69a5236500507c27",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/releases/download/0.5.0/rules_pkg-0.5.0.tar.gz",
+        "https://github.com/bazelbuild/rules_pkg/releases/download/0.5.0/rules_pkg-0.5.0.tar.gz",
+    ],
+)
+
+load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
+
+rules_pkg_dependencies()
+
+# NodeJS Support
+http_archive(
+    name = "build_bazel_rules_nodejs",
+    sha256 = "4a5d654a4ccd4a4c24eca5d319d85a88a650edf119601550c95bf400c8cc897e",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/3.5.1/rules_nodejs-3.5.1.tar.gz"],
+)
+
+# Go Support
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "io_bazel_rules_go",
+    sha256 = "69de5c704a05ff37862f7e0f5534d4f479418afc21806c887db544a316f3cb6b",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.27.0/rules_go-v0.27.0.tar.gz",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.27.0/rules_go-v0.27.0.tar.gz",
+    ],
+)
+
+http_archive(
+    name = "bazel_gazelle",
+    sha256 = "62ca106be173579c0a167deb23358fdfe71ffa1e4cfdddf5582af26520f1c66f",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.23.0/bazel-gazelle-v0.23.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.23.0/bazel-gazelle-v0.23.0.tar.gz",
+    ],
+)
+
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+
+go_rules_dependencies()
+
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+load("//:go_repositories.bzl", "go_repositories")
+
+# gazelle:repository_macro go_repositories.bzl%go_repositories
+go_repositories()
+
+go_register_toolchains(version = "1.16")
+
+gazelle_dependencies()
+
+# Docker Support
+http_archive(
+    name = "io_bazel_rules_docker",
+    sha256 = "59d5b42ac315e7eadffa944e86e90c2990110a1c8075f1cd145f487e999d22b3",
+    strip_prefix = "rules_docker-0.17.0",
+    urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.17.0/rules_docker-v0.17.0.tar.gz"],
+)
+
+load(
+    "@io_bazel_rules_docker//toolchains/docker:toolchain.bzl",
+    docker_toolchain_configure = "toolchain_configure",
+)
+
+# Allow for authenticated pushes
+docker_toolchain_configure(
+    name = "docker_config",
+)
+
+load(
+    "@io_bazel_rules_docker//repositories:repositories.bzl",
+    container_repositories = "repositories",
+)
+
+container_repositories()
+
+load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
+
+container_deps()
+
+# Pull base AWS Lambda Image
+load("@io_bazel_rules_docker//container:pull.bzl", "container_pull")
+
+container_pull(
+    name = "lambda_go",
+    registry = "public.ecr.aws",
+    repository = "lambda/provided",
+    tag = "al2",
+)
+
+container_pull(
+    name = "lambda_node",
+    registry = "public.ecr.aws",
+    repository = "lambda/nodejs",
+    tag = "14",
+)
+
+# Pull base strapi (CMS) Image
+container_pull(
+    name = "strapi_base",
+    registry = "registry.hub.docker.com",
+    repository = "strapi/base",
+    tag = "12",
+)
+
+container_pull(
+    name = "strapi_image",
+    registry = "registry.hub.docker.com",
+    repository = "strapi/strapi",
+    tag = "3.6.5",
+)

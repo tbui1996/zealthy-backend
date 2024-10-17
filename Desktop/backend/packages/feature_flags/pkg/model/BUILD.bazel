@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "model",
+    srcs = ["feature_flag.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/feature_flags/pkg/model",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/common/dao",
+        "@io_gorm_gorm//:gorm",
+    ],
+)
+
+go_test(
+    name = "model_test",
+    srcs = ["feature_flag_test.go"],
+    embed = [":model"],
+    deps = [
+        "//packages/common/dao",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_stretchr_testify//suite",
+    ],
+)

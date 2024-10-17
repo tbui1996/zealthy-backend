@@ -1,0 +1,1 @@
+ALTER TABLE chat.sessions ALTER COLUMN chat_type DROP NOT NULL;

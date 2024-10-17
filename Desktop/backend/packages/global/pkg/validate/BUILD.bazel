@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "validate",
+    srcs = ["connection_event.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/global/pkg/validate",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/common/exception",
+        "@com_github_aws_aws_lambda_go//events",
+    ],
+)
+
+go_test(
+    name = "validate_test",
+    srcs = ["connection_event_test.go"],
+    embed = [":validate"],
+    deps = [
+        "//packages/common/exception",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_stretchr_testify//assert",
+    ],
+)

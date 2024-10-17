@@ -1,0 +1,12 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "eventconstants",
+    srcs = [
+        "event_bus.go",
+        "event_types.go",
+        "service_names.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/common/events/eventconstants",
+    visibility = ["//visibility:public"],
+)

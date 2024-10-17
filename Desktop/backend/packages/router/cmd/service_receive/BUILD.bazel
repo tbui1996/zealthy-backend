@@ -1,0 +1,46 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "service_receive_lib",
+    srcs = [
+        "handler.go",
+        "main.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/router/cmd/service_receive",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//packages/common/exception",
+        "//packages/common/logging",
+        "//packages/common/requestConfig",
+        "//packages/router/pkg/request",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_lambda_go//lambda",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//service/sqs",
+        "@com_github_aws_aws_sdk_go//service/sqs/sqsiface",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_binary(
+    name = "service_receive",
+    embed = [":service_receive_lib"],
+    goarch = "amd64",
+    goos = "linux",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "service_receive_test",
+    srcs = ["handler_test.go"],
+    embed = [":service_receive_lib"],
+    deps = [
+        "//packages/common/mocks",
+        "//packages/router/pkg/request",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_sdk_go//service/sqs",
+        "@com_github_stretchr_testify//mock",
+        "@com_github_stretchr_testify//suite",
+        "@org_uber_go_zap//zaptest",
+    ],
+)

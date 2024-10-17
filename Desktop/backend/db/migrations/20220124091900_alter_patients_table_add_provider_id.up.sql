@@ -1,0 +1,1 @@
+ALTER TABLE IF EXISTS chat.patients ADD COLUMN IF NOT EXISTS provider_id VARCHAR(64);

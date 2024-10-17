@@ -1,0 +1,8 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "iface",
+    srcs = ["offline_message_notification_repo.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/support/pkg/offline_message_notification/iface",
+    visibility = ["//visibility:public"],
+)

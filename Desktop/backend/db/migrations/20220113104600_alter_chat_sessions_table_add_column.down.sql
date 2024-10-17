@@ -1,0 +1,1 @@
+ALTER TABLE chat.sessions DROP COLUMN IF EXISTS chat_type;

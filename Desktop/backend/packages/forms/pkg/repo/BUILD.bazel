@@ -1,0 +1,25 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "repo",
+    srcs = ["main.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/forms/pkg/repo",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/forms/pkg/model",
+        "@io_gorm_gorm//:gorm",
+    ],
+)
+
+go_test(
+    name = "repo_test",
+    srcs = ["main_test.go"],
+    embed = [":repo"],
+    deps = [
+        "//packages/forms/pkg/model",
+        "@com_github_data_dog_go_sqlmock//:go-sqlmock",
+        "@com_github_stretchr_testify//suite",
+        "@io_gorm_driver_postgres//:postgres",
+        "@io_gorm_gorm//:gorm",
+    ],
+)

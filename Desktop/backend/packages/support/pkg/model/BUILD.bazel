@@ -1,0 +1,28 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "model",
+    srcs = [
+        "chat.go",
+        "chat_message.go",
+        "chat_session_dto.go",
+        "chat_session_dto_with_pending.go",
+        "connection_item.go",
+        "internal_user_message.go",
+        "message.go",
+        "patient.go",
+        "pending_chat_session_create.go",
+        "pending_chat_session_dto.go",
+        "query.go",
+        "session.go",
+        "session_descriptor.go",
+        "session_last_message.go",
+        "session_note.go",
+        "session_patient.go",
+        "session_read_receipt.go",
+        "session_status.go",
+        "session_user.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/support/pkg/model",
+    visibility = ["//visibility:public"],
+)

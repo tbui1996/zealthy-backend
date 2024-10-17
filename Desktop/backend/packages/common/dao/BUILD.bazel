@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "dao",
+    srcs = [
+        "main.go",
+        "table_prefixes.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/common/dao",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@io_gorm_driver_postgres//:postgres",
+        "@io_gorm_gorm//:gorm",
+        "@io_gorm_gorm//schema",
+    ],
+)

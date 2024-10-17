@@ -1,0 +1,31 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "data",
+    srcs = ["feature_flag_repository.go"],
+    importpath = "github.com/circulohealth/sonar-backend/packages/feature_flags/pkg/data",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/common/dao",
+        "//packages/feature_flags/pkg/data/flag_error",
+        "//packages/feature_flags/pkg/model",
+        "@io_gorm_gorm//:gorm",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_test(
+    name = "data_test",
+    srcs = ["feature_flag_repository_test.go"],
+    embed = [":data"],
+    deps = [
+        "//packages/feature_flags/pkg/data/flag_error",
+        "//packages/feature_flags/pkg/model",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_data_dog_go_sqlmock//:go-sqlmock",
+        "@com_github_stretchr_testify//suite",
+        "@io_gorm_driver_postgres//:postgres",
+        "@io_gorm_gorm//:gorm",
+        "@org_uber_go_zap//zaptest",
+    ],
+)

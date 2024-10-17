@@ -1,0 +1,55 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "receive_lib",
+    srcs = [
+        "handler.go",
+        "main.go",
+        "undelivered_handler.go",
+    ],
+    importpath = "github.com/circulohealth/sonar-backend/packages/router/cmd/receive",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//packages/common/dynamo",
+        "//packages/common/requestConfig",
+        "//packages/router/pkg/model",
+        "//packages/router/pkg/request",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_lambda_go//lambda",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//service/apigatewaymanagementapi",
+        "@com_github_aws_aws_sdk_go//service/apigatewaymanagementapi/apigatewaymanagementapiiface",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@com_github_aws_aws_sdk_go//service/dynamodb/dynamodbattribute",
+        "@com_github_aws_aws_sdk_go//service/dynamodb/dynamodbiface",
+        "@com_github_aws_aws_sdk_go//service/sqs",
+        "@com_github_aws_aws_sdk_go//service/sqs/sqsiface",
+    ],
+)
+
+go_binary(
+    name = "receive",
+    embed = [":receive_lib"],
+    goarch = "amd64",
+    goos = "linux",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "receive_test",
+    srcs = [
+        "handler_test.go",
+        "undeliverd_handler_test.go",
+    ],
+    embed = [":receive_lib"],
+    deps = [
+        "//packages/common/mocks",
+        "//packages/router/pkg/request",
+        "@com_github_aws_aws_lambda_go//events",
+        "@com_github_aws_aws_sdk_go//aws",
+        "@com_github_aws_aws_sdk_go//service/dynamodb",
+        "@com_github_aws_aws_sdk_go//service/sqs",
+        "@com_github_stretchr_testify//mock",
+        "@com_github_stretchr_testify//suite",
+    ],
+)

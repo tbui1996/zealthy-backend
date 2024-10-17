@@ -1,0 +1,1 @@
+terraform destroy -target=module.users_group_assign
