@@ -1,1 +1,0 @@
-ALTER TABLE chat.sessions ALTER COLUMN chat_type SET NOT NULL;

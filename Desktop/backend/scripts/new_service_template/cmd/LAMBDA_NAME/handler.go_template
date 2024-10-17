@@ -1,8 +1,0 @@
-package main
-
-type HandlerInput struct{}
-type HandlerDeps struct{}
-
-func Handler(input HandlerInput, deps HandlerDeps) error {
-	return nil
-}

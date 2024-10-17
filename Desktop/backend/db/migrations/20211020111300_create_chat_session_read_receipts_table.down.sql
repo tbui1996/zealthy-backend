@@ -1,1 +1,0 @@
-DROP TABLE IF EXISTS chat.session_read_receipts;

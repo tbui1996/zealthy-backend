@@ -1,1 +1,0 @@
-DROP TABLE IF EXISTS chat.session_last_messages;

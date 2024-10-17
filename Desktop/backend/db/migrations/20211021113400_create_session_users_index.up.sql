@@ -1,1 +1,0 @@
-CREATE INDEX IF NOT EXISTS idx_session_id_user_id ON chat.session_users (session_id, user_id);

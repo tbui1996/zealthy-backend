@@ -1,1 +1,0 @@
-UPDATE chat.patients SET provider_id = NULL;

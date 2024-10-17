@@ -1,1 +1,0 @@
-DELETE FROM agency_provider WHERE dodd_number = '0';

@@ -1,3 +1,0 @@
-CREATE TABLE IF NOT EXISTS users.external_users (
-  id VARCHAR(255) PRIMARY KEY
-);

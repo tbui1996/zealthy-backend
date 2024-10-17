@@ -1,1 +1,0 @@
-ALTER TABLE chat.sessions ALTER COLUMN created TYPE TIMESTAMP USING to_timestamp(created);

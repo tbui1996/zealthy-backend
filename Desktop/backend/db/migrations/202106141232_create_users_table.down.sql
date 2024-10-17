@@ -1,1 +1,0 @@
-DROP TABLE router.users CASCADE;

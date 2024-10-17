@@ -1,8 +1,0 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library")
-
-go_library(
-    name = "response",
-    srcs = ["pre_signed_url_response.go"],
-    importpath = "github.com/circulohealth/sonar-backend/packages/cloud/pkg/response",
-    visibility = ["//visibility:public"],
-)

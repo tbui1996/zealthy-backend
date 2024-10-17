@@ -1,1 +1,0 @@
-ALTER TABLE chat.sessions ADD COLUMN chat_type CHAT_TYPE DEFAULT NULL;

@@ -1,8 +1,0 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library")
-
-go_library(
-    name = "pretty",
-    srcs = ["main.go"],
-    importpath = "github.com/circulohealth/sonar-backend/packages/common/pretty",
-    visibility = ["//visibility:public"],
-)

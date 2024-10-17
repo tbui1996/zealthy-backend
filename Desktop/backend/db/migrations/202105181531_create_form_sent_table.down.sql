@@ -1,1 +1,0 @@
-DROP TABLE IF EXISTS form.form_sents;

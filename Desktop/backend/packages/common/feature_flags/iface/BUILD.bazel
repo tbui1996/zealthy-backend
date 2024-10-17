@@ -1,9 +1,0 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library")
-
-go_library(
-    name = "iface",
-    srcs = ["evaluator.go"],
-    importpath = "github.com/circulohealth/sonar-backend/packages/common/feature_flags/iface",
-    visibility = ["//visibility:public"],
-    deps = ["//packages/common/feature_flags"],
-)

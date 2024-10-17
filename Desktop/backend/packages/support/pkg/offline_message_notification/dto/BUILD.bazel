@@ -1,8 +1,0 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library")
-
-go_library(
-    name = "dto",
-    srcs = ["record_offline_message.go"],
-    importpath = "github.com/circulohealth/sonar-backend/packages/support/pkg/offline_message_notification/dto",
-    visibility = ["//visibility:public"],
-)

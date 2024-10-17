@@ -1,9 +1,0 @@
-CREATE TYPE SESSION_DESCRIPTOR AS ENUM ('TOPIC', 'DESCRIPTION');
-
-CREATE TABLE IF NOT EXISTS chat.session_descriptors (
-   session_id INT PRIMARY KEY,
-   name SESSION_DESCRIPTOR NOT NULL,
-   value VARCHAR(255) NOT NULL,
-   FOREIGN KEY (session_id)
-       REFERENCES chat.sessions (id)
-);
